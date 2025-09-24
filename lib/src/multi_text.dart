@@ -4,7 +4,8 @@ import 'package:multi_text/src/multi_text_config.dart';
 import 'package:multi_text/src/multi_text_token.dart';
 
 class MultiText extends StatelessWidget {
-  const MultiText(this.text,{
+  const MultiText(
+    this.text, {
     this.style,
     this.tokens,
     this.textAlign = TextAlign.start,
@@ -14,7 +15,7 @@ class MultiText extends StatelessWidget {
     this.strutStyle,
     this.textHeightBehavior,
     this.overflow = TextOverflow.clip,
-    this.textScaleFactor = 1.0,
+    this.textScaleFactor,
     this.textWidthBasis = TextWidthBasis.parent,
     this.textDirection,
     Key? key,
@@ -31,7 +32,7 @@ class MultiText extends StatelessWidget {
   final StrutStyle? strutStyle;
   final TextWidthBasis textWidthBasis;
   final TextHeightBehavior? textHeightBehavior;
-  final double textScaleFactor;
+  final double? textScaleFactor;
   final TextDirection? textDirection;
 
   @override
@@ -39,6 +40,7 @@ class MultiText extends StatelessWidget {
     final config = MultiTextConfig.of(context).copyWith(
       tokens: tokens,
       defaultStyle: style,
+      textScaleFactor: textScaleFactor,
     );
 
     return FastRichText(
@@ -51,7 +53,7 @@ class MultiText extends StatelessWidget {
       strutStyle: strutStyle,
       textHeightBehavior: textHeightBehavior,
       overflow: overflow,
-      textScaleFactor: textScaleFactor,
+      textScaleFactor: config.textScaleFactor,
       textWidthBasis: textWidthBasis,
       textDirection: textDirection,
       useCustomParseSymbolsOnly: true,
@@ -59,4 +61,3 @@ class MultiText extends StatelessWidget {
     );
   }
 }
- 
