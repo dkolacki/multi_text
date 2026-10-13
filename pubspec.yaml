@@ -1,11 +1,11 @@
 name: multi_text
 description: A new Flutter package project.
-version: 0.0.2
+version: 0.0.3
 homepage: dkolacki.com
 
 environment:
-  sdk: ">=2.16.2 <3.0.0"
-  flutter: ">=1.17.0"
+  sdk: ">=3.7.0 <4.0.0"
+  flutter: ">=3.29.0"
 
 dependencies:
   flutter:

@@ -18,8 +18,6 @@ class NodeToTextConverter {
 
   final List<String> _symbolChars;
 
-  final RegExp _escapedCharExp = RegExp("\\\\\\\\(.)");
-
   NodeToTextConverter({
     required this.symbols,
     required this.defaultTextStyle,
@@ -70,26 +68,19 @@ class NodeToTextConverter {
   }
 
   String _getCleanedString(int startIndex, int endIndex) {
-    String string = text.substring(startIndex, endIndex);
+    final buffer = StringBuffer();
 
-    for (var symbolChar in _symbolChars) {
-      //clear symbols, ignore escaped
-      string = string.replaceAllMapped(symbolChar, (match) {
-        if (match.start == 0 || (string[match.start - 1] != '\\\\')) {
-          return "";
-        } else {
-          return match.group(0).toString();
-        }
-      });
+    for (int i = startIndex; i < endIndex; i++) {
+      final char = text[i];
+
+      if (char == '\\' && i + 1 < endIndex) {
+        buffer.write(text[++i]);
+      } else if (!_symbolChars.contains(char)) {
+        buffer.write(char);
+      }
     }
 
-    // remove escaped backslashes
-    return string.replaceAllMapped(
-      _escapedCharExp,
-      (match) {
-        return match.group(0)!.substring(1);
-      },
-    );
+    return buffer.toString();
   }
 
   List<InlineSpan> _buildTextSpanChildren({

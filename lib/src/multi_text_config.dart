@@ -7,21 +7,29 @@ class MultiTextConfig {
     required this.tokens,
     required this.defaultStyle,
     required this.textScaleFactor,
+    this.linkStyle,
+    this.linkActiveStyle,
   });
 
-  final List<MultiTextToken> tokens;
+  final List<MultiTextTokenBase> tokens;
   final TextStyle defaultStyle;
   final double textScaleFactor;
+  final TextStyle? linkStyle;
+  final TextStyle? linkActiveStyle;
 
   MultiTextConfig copyWith({
-    List<MultiTextToken>? tokens,
+    List<MultiTextTokenBase>? tokens,
     TextStyle? defaultStyle,
     double? textScaleFactor,
+    TextStyle? linkStyle,
+    TextStyle? linkActiveStyle,
   }) {
     return MultiTextConfig(
       tokens: tokens ?? this.tokens,
       defaultStyle: defaultStyle ?? this.defaultStyle,
       textScaleFactor: textScaleFactor ?? this.textScaleFactor,
+      linkStyle: linkStyle ?? this.linkStyle,
+      linkActiveStyle: linkActiveStyle ?? this.linkActiveStyle,
     );
   }
 

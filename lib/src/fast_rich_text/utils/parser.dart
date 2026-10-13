@@ -13,8 +13,15 @@ class Parser {
   final StringToNodeParser _stringToNodeParser;
 
   bool _isRegisteredSymbol(String text, int index) {
-    bool escaped = (index > 1) && (text.substring(index-2, index) == '\\\\');
-    return !escaped && symbols.contains(text[index]);
+    return symbols.contains(text[index]) && !_isEscaped(text, index);
+  }
+
+  bool _isEscaped(String text, int index) {
+    int backslashes = 0;
+    while (backslashes < index && text[index - backslashes - 1] == '\\') {
+      backslashes++;
+    }
+    return backslashes.isOdd;
   }
 
   Parser({
